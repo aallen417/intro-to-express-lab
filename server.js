@@ -2,6 +2,7 @@
 
 import express from 'express'
 import { collectibles } from './data/collectibles.js'
+import { shoes } from './data/shoes.js'
 // create Express app
 
 const app = express()
