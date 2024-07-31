@@ -1,7 +1,7 @@
 // import modules
 
 import express from 'express'
-
+import { collectibles } from './data/collectibles.js'
 // create Express app
 
 const app = express()
@@ -30,6 +30,13 @@ app.get("/roll/:number", function(req, res) {
   }
 })
 
+app.get("/collectibles/:index", function(req, res) {
+    if (req.params.index > collectibles.length - 1) {
+    res.send("This item is not yet in stock. Check back soon!")
+    } else {
+      res.send(collectibles[req.params.index])
+    }
+})
 
 
 
