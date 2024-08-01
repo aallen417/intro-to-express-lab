@@ -21,7 +21,7 @@ app.get("/greetings/:username", function(req, res) {
 })
 
 app.get("/roll/:number", function(req, res) {
-  if (!Number.isInteger(parseInt(req.params.number))) {
+  if (isNaN(parseInt(req.params.number))) {
     res.send("You must specify a number.")
   } else {
     function randomNumberGen(number) {
@@ -40,16 +40,14 @@ app.get("/collectibles/:index", function(req, res) {
 })
 
 app.get("/shoes", function(req, res) {
-
-  let filteredShoeType = shoes.filter((shoe) => {
-   return shoe.type === req.query.type
-  })
-  // res.send(filteredShoeType)  
-  let filteredShoePrice = shoes.filter((shoe) => {
-      return shoe.price === parseInt(req.query.price)
-    })
-    // res.send(filteredShoePrice)
-  })
+  const minPrice = req.query["min-price"] ? req.query["min-price"] : 0
+  const maxPrice = req.query["max-price"] ? req.query["max-price"] : Infinity
+  const type = req.query.type ? req.query.type : ""
+  const filteredShoes = shoes.filter(shoe => {
+  return shoe.price >= minPrice && shoe.price <= maxPrice && shoe.type.includes(type)
+  }) 
+  res.send(filteredShoes)
+})
 // tell the app to listen on port 3000
 
 app.listen(3000, function() {
