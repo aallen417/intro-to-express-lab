@@ -39,8 +39,17 @@ app.get("/collectibles/:index", function(req, res) {
     }
 })
 
+app.get("/shoes", function(req, res) {
 
-
+  let filteredShoeType = shoes.filter((shoe) => {
+   return shoe.type === req.query.type
+  })
+  // res.send(filteredShoeType)  
+  let filteredShoePrice = shoes.filter((shoe) => {
+      return shoe.price === parseInt(req.query.price)
+    })
+    // res.send(filteredShoePrice)
+  })
 // tell the app to listen on port 3000
 
 app.listen(3000, function() {
